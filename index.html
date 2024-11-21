@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LIA | Microscópio</title>
+    <link
+      rel="shortcut icon"
+      type="image/svg"
+      href="https://liaser.s3.sa-east-1.amazonaws.com/LIA/%C3%ADcones/black-logo-transp.png"
+    />
+
+    <!-- Desabilitar em deploy -->
+    <link rel="stylesheet" href="./assets/css/lia-practice-style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+
+    <!-- Habilitar em deploy -->
+    <!-- <link rel="stylesheet" href="../src_newTemplate/css/lia-practice-style.css"> -->
+    <!-- <link rel="stylesheet" href="../src_newTemplate/css/style.css"> -->
+
+    <style>
+      /* Estilos para o modal */
+      .modal {
+        display: none; /* Escondendo o modal por padrão */
+        position: fixed; /* Posição fixa para sobrepor o conteúdo */
+        z-index: 1; /* Z-index alto para ficar acima dos outros elementos */
+        left: 0;
+        top: 0;
+        width: 100%; /* Cobrir a largura total da página */
+        height: 100%; /* Cobrir a altura total da página */
+        overflow: none; /* Adicionar rolagem quando necessário */
+        background-color: rgba(
+          0,
+          0,
+          0,
+          0.4
+        ); /* Fundo escuro com transparência */
+      }
+
+      /* Estilos para o conteúdo do modal */
+      .modal-content {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border: 1px solid #888;
+        border-radius: 10px;
+        width: 97%;
+        height: 97%;
+        color: white;
+      }
+
+      /* Estilos para o botão de fechar */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+        /* Tela de carregamento ocupando toda a tela */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff; /* Cor de fundo da tela de carregamento */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+/* Spinner estilo círculo giratório */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db; /* Cor da borda superior */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+/* Animação de rotação do spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+    </style>
+
+    <script
+      async
+      src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"
+    ></script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.153.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.153.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="loading-screen">
+      <div class="spinner"></div>
+      <p>Carregando...</p>
+  </div>
+    <div class="context_canvas">
+      <div id="myModal" class="modal">
+        <!-- Conteúdo do modal -->
+        <div id="modal-content" class="modal-content">
+          <span class="close" onclick="closeModal()">&times;</span>
+          <p>Visualização 3D</p>
+        </div>
+      </div>
+
+  
+
+
+      <!--CANVAS-->
+      <div id="animation"></div>
+    </div>
+  </body>
+
+  <script>
+    // Função para fechar o modal
+    window.addEventListener("load", function() {
+    const loadingScreen = document.getElementById("loading-screen");
+    loadingScreen.style.display = "none";
+});
+
+    function closeModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
+  </script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/fontfaceobserver@2.1.0/fontfaceobserver.standalone.js"
+    integrity="sha256-fhre4iYmFiwPsIkJajvUGcWlfVAEPjG/bnsuopL2NB8="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/gsap@3.6.0/dist/gsap.min.js"
+    integrity="sha256-0+1stGa9ZU/jbFf6rLHIitTieTCHQx1v/FNmlhpMl48="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/gsap@3.6.0/dist/PixiPlugin.min.js"
+    integrity="sha256-+kuGJv7BiwEeMgQQ+idx03aARIMZzt2q5uHO4bcct8c="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/pixi.js@5.3.7/dist/pixi.min.js"
+    integrity="sha256-kraYJiQN21Z9BbGRczdjvDL7nznrJohivxvUMOgJj8o="
+    crossorigin="anonymous"
+  ></script>
+
+  <script>
+    window.onload = function() {
+        const script = document.createElement('script');
+        script.src = 'objects.js';
+        document.body.appendChild(script);
+    };
+</script>
+
+
+<script async src="./src/objects.js"></script>
+
+  <script src="https://lia-labv.s3.sa-east-1.amazonaws.com/praticas/prototypes/importation-files/personas.js"></script>
+  <script src="https://lia-labv.s3.sa-east-1.amazonaws.com/praticas/prototypes/importation-files/textInput.js"></script>
+  <script src="https://lia-labv.s3.sa-east-1.amazonaws.com/praticas/_general-files/functions.js"></script>
+  <script src="https://lia-labv.s3.sa-east-1.amazonaws.com/praticas/_general-files/intro.js"></script>
+  <script src="https://lia-labv.s3.sa-east-1.amazonaws.com/praticas/_general-files/footer_v2.js"></script>
+
+  <!-- Atenção ao caminho principal do bundle.js -->
+  <script id="app" src="./dist/bundle.js" ></script>
+  <script type="module" src="./src/threejs/scene3d.js"></script>
+
+</html>

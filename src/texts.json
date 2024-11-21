@@ -1,0 +1,13 @@
+{
+  "footer": {
+    "title": "Cenário-Engenharia",
+    "version": 3.0,
+    "year": 2023,
+    "collaborators": {
+      "Desenvolvedores": "Angélica Martiniano",
+      "Consultoria": "John Doe",
+      "designer": "Cleison Ferreira",
+      "Direção": "Heloisa Pimentel, Adilson Da Silva"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "lia-template",
+  "version": "1.0.1",
+  "description": "template para criações de simuladores virtuais.",
+  "author": "emersonjps",
+  "main": "animation.js",
+  "scripts": {
+    "start": "webpack -w",
+    "dep": "npm i --force"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4",
+    "@babel/cli": "^7.22.6",
+    "@babel/core": "^7.22.6",
+    "@babel/preset-env": "^7.22.6",
+    "babel-loader": "^9.1.2",
+    "nodemon": "^2.0.22",
+    "pixi.js": "^6.3.1",
+    "pixi.js-legacy": "^6.3.2",
+    "gsap": "^3.10.4"
+  },
+  "dependencies": {
+    "core-js": "^3.23.4",
+    "regenerator-runtime": "^0.13.9",
+    "three": "^0.153.0"
+  }
+}
